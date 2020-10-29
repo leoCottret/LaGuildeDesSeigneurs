@@ -12,7 +12,7 @@ class CharacterController extends AbstractController
 {
 
      /**
-     * @Route("/character", name="characterIndex", methods={"GET"})
+     * @Route("/character", name="characterIndex", methods={"GET","HEAD"})
      */
     public function index(): Response
     {
@@ -23,7 +23,7 @@ class CharacterController extends AbstractController
     }
 
     /**
-     * @Route("/display", name="characterDisplay", methods={"GET"})
+     * @Route("/display", name="characterDisplay", methods={"GET","HEAD"})
      * name="character_display"
      */
     public function display()
