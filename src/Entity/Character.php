@@ -53,6 +53,16 @@ class Character
      */
     private $image = 'yenAPas';
 
+    /**
+     * @ORM\Column(type="string", length=16)
+     */
+    private $kind;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $creation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -148,5 +158,29 @@ class Character
      */
     public function toArray(){
         return get_object_vars($this);
+    }
+
+    public function getKind(): ?string
+    {
+        return $this->kind;
+    }
+
+    public function setKind(string $kind): self
+    {
+        $this->kind = $kind;
+
+        return $this;
+    }
+
+    public function getCreation(): ?\DateTimeInterface
+    {
+        return $this->creation;
+    }
+
+    public function setCreation(\DateTimeInterface $creation): self
+    {
+        $this->creation = $creation;
+
+        return $this;
     }
 }
