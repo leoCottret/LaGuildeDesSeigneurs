@@ -4,12 +4,21 @@ namespace App\Service;
 
 use DateTime;
 use App\Entity\Character;
+use Doctrine\ORM\EntityManagerInterface;
 
 
 /**
  * (@inheritdoc)
  */
-class CharacterService implements CharacterServiceInterface {
+class CharacterService implements CharacterServiceInterface 
+{
+
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
 
     public function create()
     {
@@ -21,7 +30,11 @@ class CharacterService implements CharacterServiceInterface {
             ->setIntelligence(130)
             ->setLife(11)
             ->setImage('image/anardil.jpg')
-            ->setCreation(new \DateTime('now'));
+            ->setCreation(new \DateTime('now'))
+            ->setIdentifier(hash('sha1', uniqid()));
+
+        $this->em->persist($character);
+        $this->em->flush();
 
         return $character;
     }

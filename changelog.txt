@@ -1,2 +1,3 @@
-v0.3
--Retour sur une version standardisée
+v0.4
+-Add character service
+-Add voter security for create and display
