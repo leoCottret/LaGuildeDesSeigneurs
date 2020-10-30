@@ -1,4 +1,2 @@
-v1.1
-- Ajout de la route create dans l'entité Character
-- Ajout des services CharacterService et CharacterServiceInterface
-- Ajout du lien vers la bdd
+v0.3
+-Retour sur une version standardisée
