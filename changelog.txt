@@ -1,2 +1,2 @@
-v0.5
-- Add character redirection
+v0.7
+- Add lots of things, no time to check

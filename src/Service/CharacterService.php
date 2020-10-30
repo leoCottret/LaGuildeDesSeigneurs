@@ -42,6 +42,31 @@ class CharacterService implements CharacterServiceInterface
         return $character;
     }
 
+    public function modify(Character $character)
+    {
+        $character
+            ->setKind('Dadsame')
+            ->setName('Anardil')
+            ->setSurname('Amie du soleil')
+            ->setIntelligence(130)
+            ->setLife(11)
+            ->setImage('image/anardil.jpg')
+            ->setCreation(new \DateTime('now'));
+
+        $this->em->persist($character);
+        $this->em->flush();
+
+        return $character;
+    }
+
+    public function delete(Character $character)
+    {
+        $this->em->remove($character);
+        $this->em->flush();
+
+        return true;
+    }
+
     /**
      * (@inheritdoc)
      */

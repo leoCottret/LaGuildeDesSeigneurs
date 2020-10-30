@@ -11,11 +11,15 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 class CharacterVoter extends Voter
 {
     public const CHARACTER_CREATE = 'characterCreate';
+    public const CHARACTER_DELETE = 'characterDelete';
+    public const CHARACTER_MODIFY = 'characterModify';
     public const CHARACTER_DISPLAY = 'characterDisplay';
     public const CHARACTER_INDEX = 'characterIndex';
 
     private const ATTRIBUTES = array(
+        self::CHARACTER_DELETE,
         self::CHARACTER_CREATE,
+        self::CHARACTER_MODIFY,
         self::CHARACTER_DISPLAY,
         self::CHARACTER_INDEX,
     );
@@ -35,6 +39,12 @@ class CharacterVoter extends Voter
         switch($attribute){
             case self::CHARACTER_CREATE:
                 return $this->canCreate(); //$this->canCreate($token);
+                break;
+            case self::CHARACTER_DELETE:
+                return $this->canDelete(); //$this->canDelete($token);
+                break;
+            case self::CHARACTER_MODIFY:
+                return $this->canModify(); //$this->canModify($token);
                 break;
             case self::CHARACTER_DISPLAY:
             case self::CHARACTER_INDEX:
@@ -58,6 +68,22 @@ class CharacterVoter extends Voter
      * Checks if is allowed to create
      */
     private function canCreate(){
+        // IMP Usually checks to know if user is allowed are here
+        return true;
+    }
+
+    /**
+     * Checks if is allowed to modify
+     */
+    private function canModify(){
+        // IMP Usually checks to know if user is allowed are here
+        return true;
+    }
+
+    /**
+     * Checks if is allowed to delete
+     */
+    private function canDelete(){
         // IMP Usually checks to know if user is allowed are here
         return true;
     }
