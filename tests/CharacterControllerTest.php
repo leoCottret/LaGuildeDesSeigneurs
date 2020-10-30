@@ -11,7 +11,6 @@ class CharacterControllerTest extends WebTestCase
 {
     private $content;
     private static $identifier;
-    private $identifierToDel = "59d5594c71cb0747bcd9d39c939561571c47f479";
     private $client;
 
     public function setUp(): void
