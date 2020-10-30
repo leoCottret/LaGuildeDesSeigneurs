@@ -7,12 +7,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\CharacterServiceInterface;
 
 class CharacterController extends AbstractController
 {
+    private $characterService;
+
+    public function __construct(CharacterServiceInterface $characterService)
+    {
+        $this->characterService = $characterService;
+    }
 
      /**
-     * @Route("/character", name="characterIndex", methods={"GET","HEAD"})
+     * @Route("/character", name="character_index", methods={"GET","HEAD"})
      */
     public function index(): Response
     {
@@ -29,6 +36,16 @@ class CharacterController extends AbstractController
     public function display()
     {
         $character = new Character();
+        return new JsonResponse($character->toArray());
+    }
+
+    /**
+     * @Route("/create", name="characterDisplay", methods={"POST","HEAD"})
+     * name="character_create"
+     */
+    public function create()
+    {
+        $character = $this->characterService->create();
         return new JsonResponse($character->toArray());
     }
 }
