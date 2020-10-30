@@ -12,10 +12,12 @@ class CharacterVoter extends Voter
 {
     public const CHARACTER_CREATE = 'characterCreate';
     public const CHARACTER_DISPLAY = 'characterDisplay';
+    public const CHARACTER_INDEX = 'characterIndex';
 
     private const ATTRIBUTES = array(
         self::CHARACTER_CREATE,
         self::CHARACTER_DISPLAY,
+        self::CHARACTER_INDEX,
     );
 
     protected function supports($attribute, $subject)
@@ -35,6 +37,7 @@ class CharacterVoter extends Voter
                 return $this->canCreate(); //$this->canCreate($token);
                 break;
             case self::CHARACTER_DISPLAY:
+            case self::CHARACTER_INDEX:
                 //Peut envoyer $token et $subject pour tester des conditions
                 return $this->canDisplay(); //$this->canDisplay($token, $subject);
                 break;

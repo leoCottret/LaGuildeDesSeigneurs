@@ -1,3 +1,2 @@
-v0.4
--Add character service
--Add voter security for create and display
+v0.5
+- Add character redirection

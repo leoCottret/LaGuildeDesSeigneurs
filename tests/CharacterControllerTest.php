@@ -9,6 +9,16 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class CharacterControllerTest extends WebTestCase
 {
+
+    public function testRedirectIndex()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/character');
+
+        $response = $client->getResponse();
+        $this->assertEquals(302, $response->getStatusCode());
+    }
+
     public function testDisplay()
     {
         $client = static::createClient();
@@ -21,7 +31,7 @@ class CharacterControllerTest extends WebTestCase
     public function testIndex()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/character');
+        $crawler = $client->request('GET', '/character/index');
 
         $response = $client->getResponse();
         $this->assertJsonResponse($client->getResponse());
