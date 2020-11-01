@@ -1,2 +1,2 @@
-v0.7.2
-- Ajout de la propriété modification
+v0.7.3
+- Ajout des champs caste et knowledge manquants pour les routes create et modify

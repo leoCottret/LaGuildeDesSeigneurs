@@ -32,6 +32,8 @@ class CharacterService implements CharacterServiceInterface
             ->setSurname('Amie du soleil')
             ->setIntelligence(130)
             ->setLife(11)
+            ->setCaste("Elfe")
+            ->setKnowledge("Magie")
             ->setImage('image/anardil.jpg')
             ->setCreation(new \DateTime('now'))
             ->setModification(new \DateTime('now'))
@@ -51,6 +53,8 @@ class CharacterService implements CharacterServiceInterface
             ->setSurname('Amie du soleilPut')
             ->setIntelligence(130)
             ->setLife(11)
+            ->setCaste("Elfe")
+            ->setKnowledge("Magie")
             ->setImage('image/anardil.jpg')
             ->setModification(new \DateTime('now'));
 
