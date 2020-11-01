@@ -34,6 +34,7 @@ class CharacterService implements CharacterServiceInterface
             ->setLife(11)
             ->setImage('image/anardil.jpg')
             ->setCreation(new \DateTime('now'))
+            ->setModification(new \DateTime('now'))
             ->setIdentifier(hash('sha1', uniqid()));
 
         $this->em->persist($character);
@@ -45,13 +46,13 @@ class CharacterService implements CharacterServiceInterface
     public function modify(Character $character)
     {
         $character
-            ->setKind('Dadsame')
-            ->setName('Anardil')
-            ->setSurname('Amie du soleil')
+            ->setKind('DamePut')
+            ->setName('AnardilPut')
+            ->setSurname('Amie du soleilPut')
             ->setIntelligence(130)
             ->setLife(11)
             ->setImage('image/anardil.jpg')
-            ->setCreation(new \DateTime('now'));
+            ->setModification(new \DateTime('now'));
 
         $this->em->persist($character);
         $this->em->flush();
