@@ -1,7 +1,4 @@
-v0.9.0
-- Ajout route create
-- Ajout PlayerController
-- Ajout PlayerVoter
-- Ajout PlayerService
-- Ajout PlayerServiceInterface
-- Ajout PlayerControllerTest (ajout test create)
+v0.10.0
+- Ajout des routes index, display, modify, delete pour l'entité Player
+- Ajout des tests pour couvrir ces routes
+- Modification des noms des tests de CharacterController

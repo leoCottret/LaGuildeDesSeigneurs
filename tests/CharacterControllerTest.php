@@ -18,7 +18,7 @@ class CharacterControllerTest extends WebTestCase
         $this->client = static::createClient();
     }
 
-    public function testCreate()
+    public function testCharacterCreate()
     {
         $crawler = $this->client->request('POST', '/character/create');
         $this->assertJsonResponse();
@@ -26,7 +26,7 @@ class CharacterControllerTest extends WebTestCase
         $this->assertIdentifier();
     }
 
-    public function testRedirectIndex()
+    public function testCharacterRedirectIndex()
     {
         $crawler = $this->client->request('GET', '/character');
 
@@ -34,7 +34,7 @@ class CharacterControllerTest extends WebTestCase
         $this->assertEquals(302, $response->getStatusCode());
     }
 
-    public function testBadIdentifier()
+    public function testCharacterBadIdentifier()
     {
         $crawler = $this->client->request('GET', '/character/display/badIdentifier');
 
@@ -42,7 +42,7 @@ class CharacterControllerTest extends WebTestCase
         $this->assertError404($response->getStatusCode());
     }
 
-    public function testInexistingIdentifier()
+    public function testCharacterInexistingIdentifier()
     {
         $crawler = $this->client->request('GET', '/character/display/49d5594c71cb0747bcd9d39c939561571c47f479');
 
@@ -50,14 +50,14 @@ class CharacterControllerTest extends WebTestCase
         $this->assertError404($response->getStatusCode());
     }
 
-    public function testModify()
+    public function testCharacterModify()
     {
         $crawler = $this->client->request('PUT', '/character/modify/'.self::$identifier);
         $this->assertJsonResponse();
         $this->assertIdentifier();
     }
 
-    public function testDisplay()
+    public function testCharacterDisplay()
     {
         $crawler = $this->client->request('GET', '/character/display/'.self::$identifier);
 
@@ -65,7 +65,7 @@ class CharacterControllerTest extends WebTestCase
         $this->assertIdentifier();
     }
 
-    public function testIndex()
+    public function testCharacterIndex()
     {
         $crawler = $this->client->request('GET', '/character/index');
 
@@ -73,7 +73,7 @@ class CharacterControllerTest extends WebTestCase
         $this->assertJsonResponse();
     }
 
-    public function testDelete()
+    public function testCharacterDelete()
     {
         $crawler = $this->client->request('DELETE', '/character/delete/'.self::$identifier);
 
