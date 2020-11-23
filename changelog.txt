@@ -1,4 +1,2 @@
-v0.10.0
-- Ajout des routes index, display, modify, delete pour l'entité Player
-- Ajout des tests pour couvrir ces routes
-- Modification des noms des tests de CharacterController
+v0.11.1
+- Maj du changelog
