@@ -1,2 +1,2 @@
-v0.12.0
-- Ajout des contraintes Asserts sur les entités Character et Player
+v0.12.1
+- Fix des données de test

@@ -25,7 +25,7 @@ class PlayerControllerTest extends WebTestCase
          [],//parameters
          [],//files
           array('CONTENT_TYPE' => 'application/json'),//Server
-         '{"lastname":"cotré","firstname":"leo","email":"a@a","mirian":6}');
+         '{"lastname":"cotré","firstname":"leo","email":"a@a.a","mirian":6}');
 
         $this->assertJsonResponse();
         $this->defineIdentifier();
@@ -76,7 +76,7 @@ class PlayerControllerTest extends WebTestCase
              [],//parameters
              [],//files
               array('CONTENT_TYPE' => 'application/json'),//Server
-              '{"lastname":"cotrééé","firstname":"leooo","email":"a@aaa","mirian":8}');
+              '{"lastname":"cotrééé","firstname":"leooo","email":"a@aaa.a","mirian":8}');
         $this->assertJsonResponse();
         $this->assertIdentifier();
     }
