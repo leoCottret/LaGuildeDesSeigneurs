@@ -15,6 +15,7 @@ use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
+use Symfony\Component\Validator\Validator\ValidatorInterface;// Pas reconnu par PHP Intelephense, c'est normal
 
 /**
  * (@inheritdoc)
@@ -24,12 +25,15 @@ class CharacterService implements CharacterServiceInterface
     private $characterRepository;
     private $em;
     private $formFactory;
+    private $validator;
 
-    public function __construct(CharacterRepository $characterRepository, EntityManagerInterface $em, FormFactoryInterface $formFactory)
+    public function __construct(CharacterRepository $characterRepository, EntityManagerInterface $em, 
+        FormFactoryInterface $formFactory, ValidatorInterface $validator)
     {
         $this->characterRepository = $characterRepository;
         $this->formFactory = $formFactory;
         $this->em = $em;
+        $this->validator = $validator;
     }
     
     public function create(string $data)
@@ -92,13 +96,11 @@ class CharacterService implements CharacterServiceInterface
      */
     public function isEntityFilled(Character $character)
     {
-        if (null === $character->getKind() ||
-            null === $character->getName() ||
-            null === $character->getSurname() ||
-            null === $character->getIdentifier() ||
-            null === $character->getCreation() ||
-            null === $character->getModification()) {
-            throw new UnprocessableEntityHttpException('Missing data for Entity -> ' . json_encode($character->toArray()));
+        // pour tester la contrainte ci-dessous -> $character->setIdentifier('badIndentifier');
+        
+        $errors = $this->validator->validate($character);
+        if (count($errors) > 0) {
+            throw new UnprocessableEntityHttpException((string)$errors .' Missing data for Entity -> ' . json_encode($character->toArray()));
         }
     }
    

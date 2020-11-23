@@ -15,6 +15,8 @@ use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
+use Symfony\Component\Validator\Validator\ValidatorInterface;// Pas reconnu par PHP Intelephense, c'est normal
+
 /**
  * (@inheritdoc)
  */
@@ -23,12 +25,15 @@ class PlayerService implements PlayerServiceInterface
     private $playerRepository;
     private $em;
     private $formFactory;
+    private $validator;
 
-    public function __construct(PlayerRepository $playerRepository, EntityManagerInterface $em, FormFactoryInterface $formFactory)
+    public function __construct(PlayerRepository $playerRepository, EntityManagerInterface $em, 
+        FormFactoryInterface $formFactory, ValidatorInterface $validator)
     {
         $this->playerRepository = $playerRepository;
         $this->formFactory = $formFactory;
         $this->em = $em;
+        $this->validator = $validator;
     }
 
     public function create(string $data)
@@ -90,14 +95,11 @@ class PlayerService implements PlayerServiceInterface
      */
     public function isEntityFilled(Player $player)
     {
-        if (null === $player->getFirstname() ||
-            null === $player->getLastname() ||
-            null === $player->getEmail() ||
-            null === $player->getMirian() ||
-            null === $player->getIdentifier() ||
-            null === $player->getCreation() ||
-            null === $player->getModification()) {
-            throw new UnprocessableEntityHttpException('Missing data for Entity -> ' . json_encode($player->toArray()));
+        // pour tester la contrainte ci-dessous -> $player->setIdentifier('badIndentifier');
+
+        $errors = $this->validator->validate($player);
+        if (count($errors) > 0) {
+            throw new UnprocessableEntityHttpException((string)$errors .' Missing data for Entity -> ' . json_encode($player->toArray()));
         }
     }
    

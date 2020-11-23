@@ -1,2 +1,2 @@
-v0.11.1
-- Maj du changelog
+v0.12.0
+- Ajout des contraintes Asserts sur les entités Character et Player
