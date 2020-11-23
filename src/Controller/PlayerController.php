@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\PlayerServiceInterface;
 
+use Symfony\Component\HttpFoundation\Request;
+
 class PlayerController extends AbstractController
 {
     private $playerService;
@@ -57,10 +59,10 @@ class PlayerController extends AbstractController
      * requirements={"identifier": "^([a-z0-9]{40})$"},
      * methods={"PUT","HEAD"})
      */
-    public function modify(Player $player){
+    public function modify(Request $request, Player $player){
         $this->denyAccessUnlessGranted('playerModify', $player);
 
-        $this->playerService->modify($player);
+        $player = $this->playerService->modify($player, $request->getContent());
         return new JsonResponse($player->toArray());
     }
 
@@ -81,11 +83,11 @@ class PlayerController extends AbstractController
      * @Route("player/create", name="player_create", methods={"POST","HEAD"})
      * name="player_create"
      */
-    public function create()
+    public function create(Request $request)
     {
         $this->denyAccessUnlessGranted('playerCreate', null);
 
-        $player = $this->playerService->create();
+        $player = $this->playerService->create($request->getContent());
 
         return new JsonResponse($player->toArray());
     }

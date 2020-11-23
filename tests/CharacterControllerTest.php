@@ -6,6 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * Tests index
+ * Exemple de test
+ * Pour lancer les tests
+ * ./vendor/bin/phpunit tests/Controller/ActionControllerTest
+ *
+ * Pour lancer un test
+ * ./vendor/bin/phpunit --filter testPostIncompleteLossActionFails
  */
 class CharacterControllerTest extends WebTestCase
 {
@@ -20,7 +26,13 @@ class CharacterControllerTest extends WebTestCase
 
     public function testCharacterCreate()
     {
-        $crawler = $this->client->request('POST', '/character/create');
+        $crawler = $this->client->request('POST', 
+        '/character/create', 
+         [],//parameters
+         [],//files
+          array('CONTENT_TYPE' => 'application/json'),//Server
+         '{"kind":"Dames","name":"Eldalótës","surname":"Fleur elfiques","caste":"Elfes","knowledge":"Artss","intelligence":1200,"life":122,"image":"/images/eldalote.jpg"}');
+
         $this->assertJsonResponse();
         $this->defineIdentifier();
         $this->assertIdentifier();
@@ -52,9 +64,28 @@ class CharacterControllerTest extends WebTestCase
 
     public function testCharacterModify()
     {
-        $crawler = $this->client->request('PUT', '/character/modify/'.self::$identifier);
+        //Test with whole content
+        $crawler = $this->client->request(
+            'PUT', 
+            '/character/modify/'.self::$identifier, 
+             [],//parameters
+             [],//files
+              array('CONTENT_TYPE' => 'application/json'),//Server
+              '{"kind":"Seigneur","name":"Gorthol","surname":"Fleur elfiquesGor","caste":"ElfesGor","knowledge":"ArtssGor","intelligence":110,"life":13,"image":"/images/gorthol.jpg"}');
         $this->assertJsonResponse();
         $this->assertIdentifier();
+
+        //Test with partial data array
+        $crawler = $this->client->request(
+            'PUT', 
+            '/character/modify/'.self::$identifier, 
+             [],//parameters
+             [],//files
+              array('CONTENT_TYPE' => 'application/json'),//Server
+              '{"kind":"Seigneur", "name":"Gorthol"}');
+        $this->assertJsonResponse();
+        $this->assertIdentifier();
+
     }
 
     public function testCharacterDisplay()
