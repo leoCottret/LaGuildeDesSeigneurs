@@ -20,15 +20,19 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;// Pas reconnu par 
 /**
  * (@inheritdoc)
  */
-class CharacterService implements CharacterServiceInterface 
+class CharacterService implements CharacterServiceInterface
 {
     private $characterRepository;
     private $em;
     private $formFactory;
     private $validator;
 
-    public function __construct(CharacterRepository $characterRepository, EntityManagerInterface $em, 
-        FormFactoryInterface $formFactory, ValidatorInterface $validator)
+    public function __construct(
+        CharacterRepository $characterRepository,
+        EntityManagerInterface $em,
+        FormFactoryInterface $formFactory,
+        ValidatorInterface $validator
+    )
     {
         $this->characterRepository = $characterRepository;
         $this->formFactory = $formFactory;
@@ -74,14 +78,14 @@ class CharacterService implements CharacterServiceInterface
         return true;
     }
 
-     /**
-      * (@inheritdoc)
-      */
+    /**
+     * (@inheritdoc)
+     */
     public function getAll()
     {
         $charactersFinal = array();
         $characters = $this->characterRepository->findAll();
-        foreach ($characters as $character){
+        foreach ($characters as $character) {
             $charactersFinal[] = $character->toArray();
         }
         return $charactersFinal;

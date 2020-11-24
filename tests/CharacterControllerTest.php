@@ -26,12 +26,14 @@ class CharacterControllerTest extends WebTestCase
 
     public function testCharacterCreate()
     {
-        $crawler = $this->client->request('POST', 
-        '/character/create', 
-         [],//parameters
+        $crawler = $this->client->request(
+            'POST',
+            '/character/create',
+            [],//parameters
          [],//files
           array('CONTENT_TYPE' => 'application/json'),//Server
-         '{"kind":"Dames","name":"Eldalótës","surname":"Fleur elfiques","caste":"Elfes","knowledge":"Artss","intelligence":1200,"life":122,"image":"/images/eldalote.jpg"}');
+         '{"kind":"Dames","name":"Eldalótës","surname":"Fleur elfiques","caste":"Elfes","knowledge":"Artss","intelligence":1200,"life":122,"image":"/images/eldalote.jpg"}'
+        );
 
         $this->assertJsonResponse();
         $this->defineIdentifier();
@@ -66,26 +68,27 @@ class CharacterControllerTest extends WebTestCase
     {
         //Test with whole content
         $crawler = $this->client->request(
-            'PUT', 
-            '/character/modify/'.self::$identifier, 
-             [],//parameters
+            'PUT',
+            '/character/modify/'.self::$identifier,
+            [],//parameters
              [],//files
               array('CONTENT_TYPE' => 'application/json'),//Server
-              '{"kind":"Seigneur","name":"Gorthol","surname":"Fleur elfiquesGor","caste":"ElfesGor","knowledge":"ArtssGor","intelligence":110,"life":13,"image":"/images/gorthol.jpg"}');
+              '{"kind":"Seigneur","name":"Gorthol","surname":"Fleur elfiquesGor","caste":"ElfesGor","knowledge":"ArtssGor","intelligence":110,"life":13,"image":"/images/gorthol.jpg"}'
+        );
         $this->assertJsonResponse();
         $this->assertIdentifier();
 
         //Test with partial data array
         $crawler = $this->client->request(
-            'PUT', 
-            '/character/modify/'.self::$identifier, 
-             [],//parameters
+            'PUT',
+            '/character/modify/'.self::$identifier,
+            [],//parameters
              [],//files
               array('CONTENT_TYPE' => 'application/json'),//Server
-              '{"kind":"Seigneur", "name":"Gorthol"}');
+              '{"kind":"Seigneur", "name":"Gorthol"}'
+        );
         $this->assertJsonResponse();
         $this->assertIdentifier();
-
     }
 
     public function testCharacterDisplay()

@@ -20,15 +20,19 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;// Pas reconnu par 
 /**
  * (@inheritdoc)
  */
-class PlayerService implements PlayerServiceInterface 
+class PlayerService implements PlayerServiceInterface
 {
     private $playerRepository;
     private $em;
     private $formFactory;
     private $validator;
 
-    public function __construct(PlayerRepository $playerRepository, EntityManagerInterface $em, 
-        FormFactoryInterface $formFactory, ValidatorInterface $validator)
+    public function __construct(
+        PlayerRepository $playerRepository,
+        EntityManagerInterface $em,
+        FormFactoryInterface $formFactory,
+        ValidatorInterface $validator
+    )
     {
         $this->playerRepository = $playerRepository;
         $this->formFactory = $formFactory;
@@ -81,7 +85,7 @@ class PlayerService implements PlayerServiceInterface
     {
         $playersFinal = array();
         $players = $this->playerRepository->findAll();
-        foreach ($players as $player){
+        foreach ($players as $player) {
             $playersFinal[] = $player->toArray();
         }
         return $playersFinal;

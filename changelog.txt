@@ -1,2 +1,2 @@
-v0.13.0
-- add character ManyToOne player relation
+v0.13.1
+- fix syntax with automatic linder

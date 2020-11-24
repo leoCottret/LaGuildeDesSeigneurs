@@ -22,18 +22,18 @@ class PlayerController extends AbstractController
         $this->playerService = $playerService;
     }
 
-     /**
-     * @Route("/player", name="player", methods={"GET","HEAD"})
-     */
+    /**
+    * @Route("/player", name="player", methods={"GET","HEAD"})
+    */
     public function redirectIndex(): Response
     {
         return $this->redirectToRoute('player_index');
     }
 
 
-     /**
-     * @Route("/player/index", name="player_index", methods={"GET","HEAD"})
-     */
+    /**
+    * @Route("/player/index", name="player_index", methods={"GET","HEAD"})
+    */
     public function index()
     {
         $this->denyAccessUnlessGranted('playerIndex', null);
@@ -50,19 +50,21 @@ class PlayerController extends AbstractController
      * methods={"GET","HEAD"})
      * @Entity("player", expr="repository.findOneByIdentifier(identifier)")
      */
-    public function display(Player $player){
+    public function display(Player $player)
+    {
         $this->denyAccessUnlessGranted('playerDisplay', $player);
         
         return new JsonResponse($player->toArray());
     }
 
-     /**
-     * @Route("/player/modify/{identifier}",
-     * name="player_modify",
-     * requirements={"identifier": "^([a-z0-9]{40})$"},
-     * methods={"PUT","HEAD"})
-     */
-    public function modify(Request $request, Player $player){
+    /**
+    * @Route("/player/modify/{identifier}",
+    * name="player_modify",
+    * requirements={"identifier": "^([a-z0-9]{40})$"},
+    * methods={"PUT","HEAD"})
+    */
+    public function modify(Request $request, Player $player)
+    {
         $this->denyAccessUnlessGranted('playerModify', $player);
 
         $player = $this->playerService->modify($player, $request->getContent());
@@ -75,12 +77,13 @@ class PlayerController extends AbstractController
     * requirements={"identifier": "^([a-z0-9]{40})$"},
     * methods={"DELETE","HEAD"})
     */
-   public function delete(Player $player){
-       $this->denyAccessUnlessGranted('playerDelete', $player);
+    public function delete(Player $player)
+    {
+        $this->denyAccessUnlessGranted('playerDelete', $player);
 
-       $response = $this->playerService->delete($player);
-       return new JsonResponse(array('delete' => $response));
-   }
+        $response = $this->playerService->delete($player);
+        return new JsonResponse(array('delete' => $response));
+    }
 
     /**
      * @Route("player/create", name="player_create", methods={"POST","HEAD"})

@@ -26,7 +26,7 @@ class CharacterVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-        if (null !== $subject){
+        if (null !== $subject) {
             return $subject instanceof Character && in_array($attribute, self::ATTRIBUTES);
         }
 
@@ -36,7 +36,7 @@ class CharacterVoter extends Voter
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
         //Defines access rights
-        switch($attribute){
+        switch ($attribute) {
             case self::CHARACTER_CREATE:
                 return $this->canCreate(); //$this->canCreate($token);
                 break;
@@ -59,7 +59,8 @@ class CharacterVoter extends Voter
     /**
      * Checks if is allowed to display
      */
-    private function canDisplay(){
+    private function canDisplay()
+    {
         // IMP Usually checks to know if user is allowed are here
         return true;
     }
@@ -67,7 +68,8 @@ class CharacterVoter extends Voter
     /**
      * Checks if is allowed to create
      */
-    private function canCreate(){
+    private function canCreate()
+    {
         // IMP Usually checks to know if user is allowed are here
         return true;
     }
@@ -75,7 +77,8 @@ class CharacterVoter extends Voter
     /**
      * Checks if is allowed to modify
      */
-    private function canModify(){
+    private function canModify()
+    {
         // IMP Usually checks to know if user is allowed are here
         return true;
     }
@@ -83,7 +86,8 @@ class CharacterVoter extends Voter
     /**
      * Checks if is allowed to delete
      */
-    private function canDelete(){
+    private function canDelete()
+    {
         // IMP Usually checks to know if user is allowed are here
         return true;
     }

@@ -22,18 +22,18 @@ class CharacterController extends AbstractController
         $this->characterService = $characterService;
     }
 
-     /**
-     * @Route("/character", name="character", methods={"GET","HEAD"})
-     */
+    /**
+    * @Route("/character", name="character", methods={"GET","HEAD"})
+    */
     public function redirectIndex(): Response
     {
         return $this->redirectToRoute('character_index');
     }
 
 
-     /**
-     * @Route("/character/index", name="character_index", methods={"GET","HEAD"})
-     */
+    /**
+    * @Route("/character/index", name="character_index", methods={"GET","HEAD"})
+    */
     public function index()
     {
         $this->denyAccessUnlessGranted('characterIndex', null);
@@ -50,19 +50,21 @@ class CharacterController extends AbstractController
      * methods={"GET","HEAD"})
      * @Entity("character", expr="repository.findOneByIdentifier(identifier)")
      */
-    public function display(Character $character){
+    public function display(Character $character)
+    {
         $this->denyAccessUnlessGranted('characterDisplay', $character);
 
         return new JsonResponse($character->toArray());
     }
 
-     /**
-     * @Route("/character/modify/{identifier}",
-     * name="character_modify",
-     * requirements={"identifier": "^([a-z0-9]{40})$"},
-     * methods={"PUT","HEAD"})
-     */
-    public function modify(Request $request, Character $character){
+    /**
+    * @Route("/character/modify/{identifier}",
+    * name="character_modify",
+    * requirements={"identifier": "^([a-z0-9]{40})$"},
+    * methods={"PUT","HEAD"})
+    */
+    public function modify(Request $request, Character $character)
+    {
         $this->denyAccessUnlessGranted('characterModify', $character);
 
         $character = $this->characterService->modify($character, $request->getContent());
@@ -75,12 +77,13 @@ class CharacterController extends AbstractController
     * requirements={"identifier": "^([a-z0-9]{40})$"},
     * methods={"DELETE","HEAD"})
     */
-   public function delete(Character $character){
-       $this->denyAccessUnlessGranted('characterDelete', $character);
+    public function delete(Character $character)
+    {
+        $this->denyAccessUnlessGranted('characterDelete', $character);
 
-       $response = $this->characterService->delete($character);
-       return new JsonResponse(array('delete' => $response));
-   }
+        $response = $this->characterService->delete($character);
+        return new JsonResponse(array('delete' => $response));
+    }
 
     /**
      * @Route("character/create", name="character_create", methods={"POST","HEAD"})

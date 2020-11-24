@@ -174,25 +174,26 @@ class Player
 
     // METHODS
 
-     /**
-     * Converts the entity in an array
-     */
-    public function toArray(bool $expand = true){ //if expend = null, we add the player but NOT the field characters, so that we avoid an infinite loop
+    /**
+    * Converts the entity in an array
+    */
+    public function toArray(bool $expand = true)
+    { //if expend = null, we add the player but NOT the field characters, so that we avoid an infinite loop
         $player = get_object_vars($this);
-        if ($expand && null !== $this->getCharacters()){
+        if ($expand && null !== $this->getCharacters()) {
             $characters = array();
-            foreach($this->getCharacters() as $character){
+            foreach ($this->getCharacters() as $character) {
                 $characters[] = $character->toArray(false);// On met ses charact dans un tableau
             }
             $player['characters'] = $characters;// On lui ajoute le tableau
         }
 
         //Specific data, on garde l'objet dans son format de base jusqu'au bout
-        if(null !== $player['creation']){
+        if (null !== $player['creation']) {
             $player['creation'] = $player['creation']->format('Y-m-d H:i:s');
         }
 
-        if(null !== $player['modification']){
+        if (null !== $player['modification']) {
             $player['modification'] = $player['modification']->format('Y-m-d H:i:s');
         }
 
