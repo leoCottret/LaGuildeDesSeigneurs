@@ -1,2 +1,4 @@
-v0.13.1
-- fix syntax with automatic linder
+v0.14
+- Ajout d'event listener
+- Modifiation de composer.json
+- Ajout de la documentation

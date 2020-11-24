@@ -17,6 +17,9 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 use Symfony\Component\Validator\Validator\ValidatorInterface;// Pas reconnu par PHP Intelephense, c'est normal
 
+//Events
+use App\Event\PlayerEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 /**
  * (@inheritdoc)
  */
@@ -26,18 +29,21 @@ class PlayerService implements PlayerServiceInterface
     private $em;
     private $formFactory;
     private $validator;
+    private $dispatcher;
 
     public function __construct(
         PlayerRepository $playerRepository,
         EntityManagerInterface $em,
         FormFactoryInterface $formFactory,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        EventDispatcherInterface $dispatcher
     )
     {
         $this->playerRepository = $playerRepository;
         $this->formFactory = $formFactory;
         $this->em = $em;
         $this->validator = $validator;
+        $this->dispatcher = $dispatcher;
     }
 
     public function create(string $data)
@@ -61,6 +67,9 @@ class PlayerService implements PlayerServiceInterface
     public function modify(Player $player, string $data)
     {
         $this->submit($player, PlayerType::class, $data);
+
+        $event = new PlayerEvent($player);
+        $this->dispatcher->dispatch($event, PlayerEvent::PLAYER_MODIFIED);
         $this->isEntityFilled($player);
         $player->setModification(new DateTime());
 

@@ -84,6 +84,9 @@
     "jean85/pretty-package-versions": {
         "version": "1.5.1"
     },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.1.1"
+    },
     "migrify/migrify-kernel": {
         "version": "0.4.2"
     },
@@ -95,6 +98,19 @@
     },
     "myclabs/deep-copy": {
         "version": "1.10.1"
+    },
+    "nelmio/api-doc-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "c8e0c38e1a280ab9e37587a8fa32b251d5bc1c94"
+        },
+        "files": [
+            "config/packages/nelmio_api_doc.yaml",
+            "config/routes/nelmio_api_doc.yaml"
+        ]
     },
     "nette/finder": {
         "version": "v2.5.2"
@@ -253,6 +269,9 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "symfony/asset": {
+        "version": "v5.1.8"
     },
     "symfony/browser-kit": {
         "version": "v5.1.8"
@@ -501,6 +520,23 @@
     "symfony/twig-bridge": {
         "version": "v5.1.8"
     },
+    "symfony/twig-bundle": {
+        "version": "5.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.0",
+            "ref": "fab9149bbaa4d5eca054ed93f9e1b66cc500895d"
+        },
+        "files": [
+            "config/packages/test/twig.yaml",
+            "config/packages/twig.yaml",
+            "templates/base.html.twig"
+        ]
+    },
+    "symfony/twig-pack": {
+        "version": "v1.0.1"
+    },
     "symfony/validator": {
         "version": "4.3",
         "recipe": {
@@ -550,8 +586,14 @@
     "theseer/tokenizer": {
         "version": "1.2.0"
     },
+    "twig/extra-bundle": {
+        "version": "v3.1.1"
+    },
     "twig/twig": {
         "version": "v3.1.1"
+    },
+    "webimpress/safe-writer": {
+        "version": "2.1.0"
     },
     "webmozart/assert": {
         "version": "1.9.1"
@@ -561,5 +603,8 @@
     },
     "zendframework/zend-eventmanager": {
         "version": "3.2.1"
+    },
+    "zircote/swagger-php": {
+        "version": "3.1.0"
     }
 }
