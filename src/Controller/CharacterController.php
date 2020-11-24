@@ -11,6 +11,8 @@ use App\Service\CharacterServiceInterface;
 
 use Symfony\Component\HttpFoundation\Request;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+
 class CharacterController extends AbstractController
 {
     private $characterService;
@@ -46,6 +48,7 @@ class CharacterController extends AbstractController
      * name="character_display",
      * requirements={"identifier": "^([a-z0-9]{40})$"},
      * methods={"GET","HEAD"})
+     * @Entity("character", expr="repository.findOneByIdentifier(identifier)")
      */
     public function display(Character $character){
         $this->denyAccessUnlessGranted('characterDisplay', $character);

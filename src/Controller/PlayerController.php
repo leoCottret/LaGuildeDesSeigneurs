@@ -11,6 +11,8 @@ use App\Service\PlayerServiceInterface;
 
 use Symfony\Component\HttpFoundation\Request;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+
 class PlayerController extends AbstractController
 {
     private $playerService;
@@ -46,10 +48,11 @@ class PlayerController extends AbstractController
      * name="player_display",
      * requirements={"identifier": "^([a-z0-9]{40})$"},
      * methods={"GET","HEAD"})
+     * @Entity("player", expr="repository.findOneByIdentifier(identifier)")
      */
     public function display(Player $player){
         $this->denyAccessUnlessGranted('playerDisplay', $player);
-
+        
         return new JsonResponse($player->toArray());
     }
 

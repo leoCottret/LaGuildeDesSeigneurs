@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PlayerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -70,6 +72,16 @@ class Player
      * @ORM\Column(type="datetime")
      */
     private $modification;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Character::class, mappedBy="player")
+     */
+    private $characters;
+
+    public function __construct()
+    {
+        $this->characters = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -165,7 +177,55 @@ class Player
      /**
      * Converts the entity in an array
      */
-    public function toArray(){
-        return get_object_vars($this);
+    public function toArray(bool $expand = true){ //if expend = null, we add the player but NOT the field characters, so that we avoid an infinite loop
+        $player = get_object_vars($this);
+        if ($expand && null !== $this->getCharacters()){
+            $characters = array();
+            foreach($this->getCharacters() as $character){
+                $characters[] = $character->toArray(false);// On met ses charact dans un tableau
+            }
+            $player['characters'] = $characters;// On lui ajoute le tableau
+        }
+
+        //Specific data, on garde l'objet dans son format de base jusqu'au bout
+        if(null !== $player['creation']){
+            $player['creation'] = $player['creation']->format('Y-m-d H:i:s');
+        }
+
+        if(null !== $player['modification']){
+            $player['modification'] = $player['modification']->format('Y-m-d H:i:s');
+        }
+
+        return $player;
+    }
+
+    /**
+     * @return Collection|Character[]
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(Character $character): self
+    {
+        if ($this->characters->removeElement($character)) {
+            // set the owning side to null (unless already changed)
+            if ($character->getPlayer() === $this) {
+                $character->setPlayer(null);
+            }
+        }
+
+        return $this;
     }
 }
