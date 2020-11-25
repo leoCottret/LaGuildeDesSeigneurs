@@ -118,7 +118,7 @@ class CharacterController extends AbstractController
      * 
      * @Route("/character/display/more_intelligent_than/{limit_intelligence}",
      * name="display_more_intelligent_than",
-     * requirements={"id"="\d+"},
+     * requirements={"limit_intelligence"="^([0-9]{1,3})$"},
      * methods={"GET","HEAD"})
      * 
      * @OA\Parameter(

@@ -1,4 +1,2 @@
-v0.16
-- Ajout d'une route api pour afficher les Characters qui ont une intelligence supérieure ou égale au nombre passé en paramètre
-- Ajout d'une deuxième route pour afficher ces Characters via twig
-- Ajout de tests pour vérifier le bon fonctionnement de la route API
+v0.16.1
+- Fix limit_intelligence check on route display/more_intelligent_than/
