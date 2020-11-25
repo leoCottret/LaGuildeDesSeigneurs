@@ -1,4 +1,4 @@
-v0.14
-- Ajout d'event listener
-- Modifiation de composer.json
-- Ajout de la documentation
+v0.16
+- Ajout d'une route api pour afficher les Characters qui ont une intelligence supérieure ou égale au nombre passé en paramètre
+- Ajout d'une deuxième route pour afficher ces Characters via twig
+- Ajout de tests pour vérifier le bon fonctionnement de la route API

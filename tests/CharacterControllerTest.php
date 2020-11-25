@@ -103,8 +103,21 @@ class CharacterControllerTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/character/index');
 
-        $response = $this->client->getResponse();
         $this->assertJsonResponse();
+    }
+
+    public function testCharacterMoreIntelligentThan()
+    {
+        $crawler = $this->client->request('GET', 'character/display/more_intelligent_than/250');
+
+        $this->assertJsonResponse();
+    }
+
+    public function testCharacterMoreIntelligentThanNoLimitIntelligenceParameter()
+    {
+        $crawler = $this->client->request('GET', 'character/display/more_intelligent_than/');
+        
+        $this->assertError404($this->client->getResponse()->getStatusCode());
     }
 
     public function testCharacterDelete()

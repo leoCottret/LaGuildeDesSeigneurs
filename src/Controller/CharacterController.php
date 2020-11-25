@@ -16,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 //Doc
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
+use phpDocumentor\Reflection\Types\Integer;
 
 class CharacterController extends AbstractController
 {
@@ -109,6 +110,44 @@ class CharacterController extends AbstractController
         $this->denyAccessUnlessGranted('characterDisplay', $character);
 
         return new JsonResponse($character->toArray());
+    }
+
+     //DISPLAY CHARACTERS
+    /**
+     * Displays the Characters whose intelligence level is greater than or equal to the number in the url
+     * 
+     * @Route("/character/display/more_intelligent_than/{limit_intelligence}",
+     * name="display_more_intelligent_than",
+     * requirements={"id"="\d+"},
+     * methods={"GET","HEAD"})
+     * 
+     * @OA\Parameter(
+     *      name="limit_intelligence",
+     *      in="path",
+     *      description="limit bottom of intelligence for the characters than we will display",
+     *      required=true
+     * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Success",
+     *      @Model(type=Character::class)
+     * )
+     * @OA\Response(
+     *      response=403,
+     *      description="Access denied"
+     * )
+     * @OA\Response(
+     *      response=404,
+     *      description="Not Found"
+     * )
+     * @OA\Tag(name="Character")
+     */
+    public function displayMoreIntelligentThan(int $limit_intelligence)
+    {
+        $this->denyAccessUnlessGranted('characterDisplayMoreIntelligentThan', null);
+
+        $characters = $this->characterService->getCharactersMoreIntelligentThan($limit_intelligence);
+        return new JsonResponse($characters);
     }
 
     //CREATE

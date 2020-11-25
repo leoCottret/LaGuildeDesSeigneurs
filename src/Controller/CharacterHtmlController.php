@@ -27,10 +27,20 @@ class CharacterHtmlController extends AbstractController
     /**
      * @Route("/index.html", name="character_index_html", methods={"GET"})
      */
-    public function index(CharacterRepository $characterRepository): Response // Mon serveur ne semble pas pouvoir afficher des routes avec extensions (.json, .html etc. j'ai donc remplacé les '.' par des '-')
+    public function index(CharacterRepository $characterRepository): Response
     {
         return $this->render('character/index.html.twig', [
             'characters' => $characterRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/more_intelligent_than/{limit_intelligence}/index.html", requirements={"id"="\d+"}, name="character_more_intelligent_than", methods={"GET"})
+     */
+    public function indexMoreIntelligentThan(int $limit_intelligence, CharacterRepository $characterRepository): Response
+    {
+        return $this->render('character/index.html.twig', [
+            'characters' => $characterRepository->findAllMoreIntelligentThan($limit_intelligence),
         ]);
     }
 
@@ -109,6 +119,6 @@ class CharacterHtmlController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('character_index');
+        return $this->redirectToRoute('character_index_html');
     }
 }

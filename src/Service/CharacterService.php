@@ -95,13 +95,23 @@ class CharacterService implements CharacterServiceInterface
         return $character;
     }
 
-
     public function delete(Character $character)
     {
         $this->em->remove($character);
         $this->em->flush();
 
         return true;
+    }
+
+
+    public function getCharactersMoreIntelligentThan($limit_intelligence)
+    {
+        $charactersFinal = array();
+        $characters = $this->characterRepository->findAllMoreIntelligentThan($limit_intelligence);
+        foreach ($characters as $character) {
+            $charactersFinal[] = $character->toArray();
+        }
+        return $charactersFinal;
     }
 
     /**

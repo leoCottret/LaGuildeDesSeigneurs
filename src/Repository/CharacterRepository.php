@@ -31,6 +31,20 @@ class CharacterRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @return Character[] Returns an array of Character objects
+     */
+    public function findAllMoreIntelligentThan($limit_intelligence): ?Array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->andWhere('c.intelligence >= :limit_intelligence')
+            ->setParameter('limit_intelligence', $limit_intelligence)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Character[] Returns an array of Character objects
     //  */

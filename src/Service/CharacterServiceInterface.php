@@ -27,4 +27,5 @@ interface CharacterServiceInterface
     public function createFromHtml(Character $character);// automatically created by symfony but we add it for visibility and in case we didn't implement the right class
     public function modifyFromHtml(Character $character);
     public function getAll();
+    public function getCharactersMoreIntelligentThan(int $limitIntelligence);
 }

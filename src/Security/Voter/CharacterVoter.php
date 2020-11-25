@@ -14,6 +14,7 @@ class CharacterVoter extends Voter
     public const CHARACTER_DELETE = 'characterDelete';
     public const CHARACTER_MODIFY = 'characterModify';
     public const CHARACTER_DISPLAY = 'characterDisplay';
+    public const CHARACTER_DISPLAY_MORE_INTELLIGENT_THAN = 'characterDisplayMoreIntelligentThan';
     public const CHARACTER_INDEX = 'characterIndex';
 
     private const ATTRIBUTES = array(
@@ -22,6 +23,7 @@ class CharacterVoter extends Voter
         self::CHARACTER_MODIFY,
         self::CHARACTER_DISPLAY,
         self::CHARACTER_INDEX,
+        self::CHARACTER_DISPLAY_MORE_INTELLIGENT_THAN,
     );
 
     protected function supports($attribute, $subject)
@@ -47,6 +49,7 @@ class CharacterVoter extends Voter
                 return $this->canModify(); //$this->canModify($token);
                 break;
             case self::CHARACTER_DISPLAY:
+            case self::CHARACTER_DISPLAY_MORE_INTELLIGENT_THAN: // someone that can display all characters can also display the more intelligent than number
             case self::CHARACTER_INDEX:
                 //Peut envoyer $token et $subject pour tester des conditions
                 return $this->canDisplay(); //$this->canDisplay($token, $subject);
