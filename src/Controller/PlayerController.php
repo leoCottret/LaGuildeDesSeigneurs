@@ -45,7 +45,7 @@ class PlayerController extends AbstractController
 
     //INDEX
     /**
-     * Displays available Characters
+     * Displays available Players
      * 
      * @Route("/player/index", name="player_index", methods={"GET","HEAD"})
      * 
@@ -147,12 +147,41 @@ class PlayerController extends AbstractController
         return new JsonResponse($player->toArray());
     }
 
+
     /**
-    * @Route("/player/modify/{identifier}",
-    * name="player_modify",
-    * requirements={"identifier": "^([a-z0-9]{40})$"},
-    * methods={"PUT","HEAD"})
-    */
+     * Modify the Player
+     * 
+     * @Route("/player/modify/{identifier}",
+     * name="player_modify",
+     * requirements={"identifier": "^([a-z0-9]{40})$"},
+     * methods={"PUT","HEAD"})
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Success",
+     *      @Model(type=Player::class)
+     * )
+     * @OA\Response(
+     *      response=403,
+     *      description="Access denied"
+     * )
+     * @OA\Parameter(
+     *      name="identifier",
+     *      in="path",
+     *      description="identifier for the Player",
+     *      required=true
+     * )
+     * @OA\RequestBody(
+     *      request="Player",
+     *      description="Data for the Player",
+     *      required=true,
+     *      @OA\MediaType(
+     *          mediaType="application/json",
+     *          @OA\Schema(ref="#/components/schemas/Player")
+     *      )
+     * )
+     * @OA\Tag(name="Player")
+     */
     public function modify(Request $request, Player $player)
     {
         $this->denyAccessUnlessGranted('playerModify', $player);

@@ -51,25 +51,41 @@ class CharacterService implements CharacterServiceInterface
     {
         //Use with {"kind":"Dame","name":"Eldalótë","surname":"Fleur elfique","caste":"Elfe","knowledge":"Arts","intelligence":120,"life":12,"image":"/images/eldalote.jpg"}
         $character = new Character();
-        $character
-            ->setIdentifier(hash('sha1', uniqid()))
-            ->setCreation(new DateTime())
-            ->setModification(new DateTime())
-        ;
+       
         $this->submit($character, CharacterType::class, $data);
-        $event = new CharacterEvent($character);
-        $this->dispatcher->dispatch($event, CharacterEvent::CHARACTER_CREATED);
-        $this->isEntityFilled($character);
 
-        $this->em->persist($character);
-        $this->em->flush();
+        return $this->createFromHtml($character);
+    }
 
-        return $character;
+    public function createFromHtml(Character $character)
+    {
+         $character
+             ->setIdentifier(hash('sha1', uniqid()))
+             ->setCreation(new DateTime())
+             ->setModification(new DateTime())
+         ;
+
+         //Dispatch event
+         $event = new CharacterEvent($character);
+         $this->dispatcher->dispatch($event, CharacterEvent::CHARACTER_CREATED);
+
+         $this->isEntityFilled($character);
+ 
+         $this->em->persist($character);
+         $this->em->flush();
+ 
+         return $character;
     }
 
     public function modify(Character $character, string $data)
     {
         $this->submit($character, CharacterType::class, $data);
+
+        return $this->modifyFromHtml($character);//No data, the character entity has already been hydrated with the new values in the submit above
+    }
+
+    public function modifyFromHtml(Character $character)
+    {
         $this->isEntityFilled($character);
         $character->setModification(new DateTime());
 
@@ -78,6 +94,7 @@ class CharacterService implements CharacterServiceInterface
 
         return $character;
     }
+
 
     public function delete(Character $character)
     {
